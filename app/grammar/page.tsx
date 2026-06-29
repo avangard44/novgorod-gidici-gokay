@@ -1,8 +1,7 @@
 import Link from 'next/link'
-import { LibraryBig, Gamepad2 } from 'lucide-react'
+import { LibraryBig, Gamepad2, BookOpen } from 'lucide-react'
 import BackButton from '@/app/components/BackButton'
 import { LibraryProgress } from '@/app/components/LibraryProgress'
-import AlphabetCard from '@/app/components/AlphabetCard'
 
 const choices = [
   {
@@ -33,8 +32,21 @@ const choices = [
     line: 'bg-violet-400',
     showProgress: false,
   },
+  {
+    href: '/grammar/alphabet',
+    icon: BookOpen,
+    label: 'Kiril Alfabesi',
+    sub: 'Harf Tablosu & Oyun',
+    desc: '33 harf, latinleştirme. Tablodan öğren, eşleştirme oyunuyla pekiştir.',
+    tintClass: 'from-emerald-500/8 to-teal-500/4',
+    glow: 'hover:shadow-[0_0_60px_rgba(16,185,129,0.12)]',
+    border: 'hover:border-emerald-500/25',
+    iconBg: 'bg-emerald-500/10 group-hover:bg-emerald-500/20',
+    iconColor: 'text-emerald-400',
+    line: 'bg-emerald-400',
+    showProgress: false,
+  },
 ]
-
 
 export default function GrammarPage() {
   return (
@@ -56,38 +68,35 @@ export default function GrammarPage() {
         </p>
       </div>
 
-      {/* Top two cards */}
-      <div className="flex flex-col sm:flex-row gap-4 w-full max-w-2xl mb-4">
+      <div className="flex flex-col gap-4 w-full max-w-2xl">
         {choices.map(({ href, icon: Icon, label, sub, desc, tintClass, glow, border, iconBg, iconColor, line, showProgress }) => (
           <Link
             key={href}
             href={href}
-            className={`group relative flex-1 flex flex-col
+            className={`group relative flex flex-col sm:flex-row sm:items-center gap-5
               bg-white/5 backdrop-blur-xl border border-white/5 ${border}
-              rounded-3xl p-8 transition-all duration-300 overflow-hidden ${glow}`}
+              rounded-3xl p-7 transition-all duration-300 overflow-hidden ${glow}`}
           >
             <div className={`absolute inset-0 bg-gradient-to-br ${tintClass}
               opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
-            <div className="relative flex flex-col gap-4">
-              <div className={`w-12 h-12 rounded-2xl ${iconBg}
+            <div className="relative flex items-start sm:items-center gap-5 flex-1">
+              <div className={`w-12 h-12 rounded-2xl ${iconBg} shrink-0
                 flex items-center justify-center transition-colors duration-200`}>
                 <Icon size={20} strokeWidth={1.4} className={iconColor} />
               </div>
-              <div>
+              <div className="flex-1">
                 <h2 className="text-lg font-black text-white tracking-tight">{label}</h2>
                 <p className="text-slate-600 text-xs mt-0.5 tracking-wide">{sub}</p>
-                <p className="text-slate-600 text-xs mt-3 leading-relaxed">{desc}</p>
+                <p className="text-slate-600 text-xs mt-2 leading-relaxed">{desc}</p>
                 {showProgress && <LibraryProgress />}
               </div>
-              <div className={`h-px ${line} opacity-30 w-6
-                group-hover:opacity-80 group-hover:w-10 transition-all duration-300`} />
             </div>
+            <div className={`relative h-px ${line} opacity-30 w-6 sm:w-0 sm:h-6 sm:w-px
+              group-hover:opacity-80 group-hover:w-10 sm:group-hover:w-px sm:group-hover:h-10
+              transition-all duration-300`} />
           </Link>
         ))}
       </div>
-
-      <AlphabetCard />
-
     </div>
   )
 }
