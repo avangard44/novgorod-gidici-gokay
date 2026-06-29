@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import { Languages, BookOpen } from 'lucide-react'
+import { StreakWidget } from '@/app/components/StreakWidget'
+import { AchievementsShowcase } from '@/app/components/AchievementsShowcase'
 
 const choices = [
   {
@@ -31,6 +33,11 @@ const choices = [
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-5 py-16">
+      {/* Streak widget — top right */}
+      <div className="fixed top-4 right-4 z-20">
+        <StreakWidget />
+      </div>
+
       {/* Title */}
       <div className="text-center mb-14">
         <p className="text-[10px] text-slate-700 uppercase tracking-[0.35em] mb-5">
@@ -45,7 +52,7 @@ export default function Home() {
         <p className="text-slate-600 text-sm mt-4">Ne yapmak istersiniz?</p>
       </div>
 
-      {/* Cards — vertical on mobile, horizontal on sm+ */}
+      {/* Cards */}
       <div className="flex flex-col sm:flex-row gap-4 w-full max-w-lg">
         {choices.map(({ href, icon: Icon, label, sub, tintClass, glow, border, iconBg, iconColor, line }) => (
           <Link
@@ -73,6 +80,9 @@ export default function Home() {
           </Link>
         ))}
       </div>
+
+      {/* Achievement showcase (visible after first unlock) */}
+      <AchievementsShowcase />
     </div>
   )
 }

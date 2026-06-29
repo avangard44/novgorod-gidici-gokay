@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { LibraryBig, Gamepad2 } from 'lucide-react'
 import BackButton from '@/app/components/BackButton'
+import { LibraryProgress } from '@/app/components/LibraryProgress'
 
 const choices = [
   {
@@ -15,6 +16,7 @@ const choices = [
     iconBg: 'bg-blue-500/10 group-hover:bg-blue-500/20',
     iconColor: 'text-blue-400',
     line: 'bg-blue-400',
+    showProgress: true,
   },
   {
     href: '/grammar/game',
@@ -28,18 +30,17 @@ const choices = [
     iconBg: 'bg-violet-500/10 group-hover:bg-violet-500/20',
     iconColor: 'text-violet-400',
     line: 'bg-violet-400',
+    showProgress: false,
   },
 ]
 
 export default function GrammarPage() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-5 py-16">
-      {/* Back */}
       <div className="w-full max-w-lg mb-10 flex">
         <BackButton />
       </div>
 
-      {/* Title */}
       <div className="text-center mb-12 w-full max-w-lg">
         <p className="text-[10px] text-slate-700 uppercase tracking-[0.35em] mb-5">Dilbilgisi</p>
         <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-white leading-tight">
@@ -53,9 +54,8 @@ export default function GrammarPage() {
         </p>
       </div>
 
-      {/* Cards */}
       <div className="flex flex-col sm:flex-row gap-4 w-full max-w-lg">
-        {choices.map(({ href, icon: Icon, label, sub, desc, tintClass, glow, border, iconBg, iconColor, line }) => (
+        {choices.map(({ href, icon: Icon, label, sub, desc, tintClass, glow, border, iconBg, iconColor, line, showProgress }) => (
           <Link
             key={href}
             href={href}
@@ -74,6 +74,7 @@ export default function GrammarPage() {
                 <h2 className="text-lg font-black text-white tracking-tight">{label}</h2>
                 <p className="text-slate-600 text-xs mt-0.5 tracking-wide">{sub}</p>
                 <p className="text-slate-600 text-xs mt-3 leading-relaxed">{desc}</p>
+                {showProgress && <LibraryProgress />}
               </div>
               <div className={`h-px ${line} opacity-30 w-6
                 group-hover:opacity-80 group-hover:w-10 transition-all duration-300`} />

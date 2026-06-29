@@ -2,12 +2,15 @@ export type Example = {
   russian: string
   turkish: string
   note?: string
+  association?: string  // mnemonic hint in Turkish
 }
 
 export type QuizQuestion = {
   question: string
   options: string[]
   correct: number
+  type?: 'stress' | 'ending'  // default = multiple-choice
+  stressWord?: string          // for type 'stress': the Russian word
 }
 
 export type Topic = {
@@ -17,6 +20,7 @@ export type Topic = {
   explanation: string
   examples: Example[]
   quiz?: QuizQuestion[]
+  specialComponent?: 'motionVerbs'
 }
 
 export type Block = {
@@ -59,14 +63,14 @@ Kelime sonunda veya sağır bir ünsüzden önce gelen sesli ünsüzler, sağır
 **Sertleştirme işareti (ъ):**
 Ъ harfi ise sözcüğün içinde bir "duraklama" yaratır ve yumuşatma işlemini engeller. Ön ekli fiillerde sıkça görülür: "объяснить" (açıklamak).`,
         examples: [
-          { russian: 'молоко', turkish: 'süt', note: '[малако] — О, А gibi okunur' },
-          { russian: 'хлеб', turkish: 'ekmek', note: '[хл\'эп] — б sona gelince п olur' },
-          { russian: 'друг', turkish: 'arkadaş', note: '[друк] — г kelime sonunda к' },
+          { russian: 'молоко', turkish: 'süt', note: '[малако] — О, А gibi okunur', association: '💡 "Mo-la-ko" — süt içince mola ver; O\'lar A\'ya akar!' },
+          { russian: 'хлеб', turkish: 'ekmek', note: '[хл\'эп] — б sona gelince п olur', association: '💡 HLEP — son ses "b→p" sertleşir, ekmek gibi sert!' },
+          { russian: 'друг', turkish: 'arkadaş', note: '[друк] — г kelime sonunda к', association: '💡 "Drug" ≠ ilaç! Arkadaş drog gibi bağımlılık yapar 😄' },
           { russian: 'год', turkish: 'yıl', note: '[гот] — д kelime sonunda т' },
           { russian: 'нож', turkish: 'bıçak', note: '[нош] — ж kelime sonunda ш' },
-          { russian: 'дверь', turkish: 'kapı', note: 'ь → son р yumuşak okunur' },
+          { russian: 'дверь', turkish: 'kapı', note: 'ь → son р yumuşak okunur', association: '💡 "Dver" → kapıdan "d-ver" gibi gir; ь son sesi yumuşatır' },
           { russian: 'объяснить', turkish: 'açıklamak', note: 'ъ → yumuşatmayı engeller' },
-          { russian: 'яблоко', turkish: 'elma', note: '[яблака] — iki О da akıyor' },
+          { russian: 'яблоко', turkish: 'elma', note: '[яблака] — iki О da akıyor', association: '💡 "Yablako" — elma ya da "Ya-bla-ko" şeklinde akar' },
         ],
         quiz: [
           { question: '"хлеб" kelimesi nasıl okunur?', options: ['[хлэб]', '[хлэп]', '[клэп]', '[хлэф]'], correct: 1 },
@@ -91,12 +95,12 @@ Rusçada cümle vurgusu da önemlidir. Soru cümlelerinde vurgu genellikle soru 
 • Это Анна. (Bu Anna.) — düz ses
 • Это Анна? (Bu Anna mı?) — Anna'da ses yükselir`,
         examples: [
-          { russian: 'за́мок', turkish: 'kale, şato', note: 'vurgu birinci hecede' },
-          { russian: 'замо́к', turkish: 'kilit', note: 'vurgu ikinci hecede' },
+          { russian: 'за́мок', turkish: 'kale, şato', note: 'vurgu birinci hecede', association: '💡 ZÁ-mok: vurgu BAŞTA → büyük şato, uzakta görünür!' },
+          { russian: 'замо́к', turkish: 'kilit', note: 'vurgu ikinci hecede', association: '💡 za-MÓK: vurgu SONDA → kilit küçük, yakın bakman lazım' },
           { russian: 'а́тлас', turkish: 'atlas (harita kitabı)', note: 'vurgu а\'da' },
           { russian: 'атла́с', turkish: 'atlas (kumaş)', note: 'vurgu а\'da (sonda)' },
-          { russian: 'мука́', turkish: 'un', note: 'vurgu sonda' },
-          { russian: 'му́ка', turkish: 'ıstırap, acı', note: 'vurgu başta' },
+          { russian: 'мука́', turkish: 'un', note: 'vurgu sonda', association: '💡 mu-KÁ: vurgu SONDA → un ağır, yavaş yavaş akar' },
+          { russian: 'му́ка', turkish: 'ıstırap, acı', note: 'vurgu başta', association: '💡 MÚ-ka: vurgu BAŞTA → acı hemen baş vurur!' },
           { russian: 'хо́ром', turkish: 'koronun, bütün sesin', note: 'vurgu başta' },
           { russian: 'хором́', turkish: 'hep bir ağızdan', note: 'zarfsal kullanım' },
         ],
@@ -104,6 +108,9 @@ Rusçada cümle vurgusu da önemlidir. Soru cümlelerinde vurgu genellikle soru 
           { question: '"за́мок" ne anlama gelir?', options: ['Kilit', 'Kale, şato', 'Kapı', 'Pencere'], correct: 1 },
           { question: '"замо́к" ne anlama gelir?', options: ['Kale', 'Kapı', 'Kilit', 'Anahtar'], correct: 2 },
           { question: 'Rusçada vurgu hakkında hangisi doğrudur?', options: ['Her zaman ilk hecede', 'Her zaman son hecede', 'Sabit bir yeri yoktur', 'Sıfatlarda değişir'], correct: 2 },
+          { question: 'Vurgulu sesliyi bul:', options: [], correct: 1, type: 'stress', stressWord: 'Москва' },
+          { question: 'Vurgulu sesliyi bul:', options: [], correct: 2, type: 'stress', stressWord: 'молоко' },
+          { question: 'Vurgulu sesliyi bul:', options: [], correct: 0, type: 'stress', stressWord: 'замок' },
         ],
       },
       {
@@ -692,6 +699,7 @@ Tamamlanmış görünüşlü fiil (СВ) şimdiki zaman gibi çekilir ama anlam 
         id: '3-5',
         number: '3.5',
         title: 'Temel Hareket Fiilleri',
+        specialComponent: 'motionVerbs' as const,
         explanation: `Rusçada hareket fiilleri çift çalışır: tek yönlü (однонаправленные) ve çok yönlü (разнонаправленные). Bu sistem Türkçede karşılığı olmayan Rusçaya özgü bir yapıdır.
 
 **Yaya hareket:**
@@ -719,10 +727,10 @@ Tamamlanmış görünüşlü fiil (СВ) şimdiki zaman gibi çekilir ama anlam 
 **İdти çekimi (düzensiz):**
 иду, идёшь, идёт, идём, идёте, идут`,
         examples: [
-          { russian: 'Я иду в магазин.', turkish: 'Ben markete gidiyorum.', note: 'şu an, tek yön' },
-          { russian: 'Я хожу в спортзал.', turkish: 'Ben spor salonuna giderim.', note: 'alışkanlık' },
-          { russian: 'Она едет в Москву.', turkish: 'O Moskova\'ya gidiyor.', note: 'araçla, şu an' },
-          { russian: 'Он ездит на работу.', turkish: 'O işe gider.', note: 'alışkanlık, araçla' },
+          { russian: 'Я иду в магазин.', turkish: 'Ben markete gidiyorum.', note: 'şu an, tek yön', association: '💡 идти = "şu an yolculuk" — ok gibi tek yön →' },
+          { russian: 'Я хожу в спортзал.', turkish: 'Ben spor salonuna giderim.', note: 'alışkanlık', association: '💡 ходить = "alışkanlık" — gidip geliyorum, yuvarlak ↔' },
+          { russian: 'Она едет в Москву.', turkish: 'O Moskova\'ya gidiyor.', note: 'araçla, şu an', association: '💡 ехать = идти\'nin araçlı versiyonu: 🚗→ şu an' },
+          { russian: 'Он ездит на работу.', turkish: 'O işe gider.', note: 'alışkanlık, araçla', association: '💡 ездить = ходить\'in araçlı versiyonu: 🚗↔ alışkanlık' },
           { russian: 'Дети бегут домой.', turkish: 'Çocuklar eve koşuyor.', note: 'бежать — tek yön' },
           { russian: 'Вчера мы ходили в кино.', turkish: 'Dün sinemaya gittik.', note: 'gidip döndük' },
           { russian: 'Куда ты идёшь?', turkish: 'Nereye gidiyorsun?', note: 'идти — 2. tekil' },
@@ -782,6 +790,8 @@ Tamamlanmış görünüşlü fiil (СВ) şimdiki zaman gibi çekilir ama anlam 
           { question: '"Mне двадцать лет." cümlesinin anlamı nedir?', options: ['20 yaşındayım.', '20 lira.', '20 dakika var.', '20 yıl geçti.'], correct: 0 },
           { question: '"сестра" kelimesi Дательный падежde nasıl olur?', options: ['сестры', 'сестре', 'сестру', 'сестрой'], correct: 1 },
           { question: '"Мне холодно." ne anlama gelir?', options: ['Soğuk hava var.', 'Üşüyorum.', 'Soğuk su istiyorum.', 'Kış soğuk.'], correct: 1 },
+          { question: 'Позвони мам[...]', options: ['-е', '-у', '-а', '-ой'], correct: 0, type: 'ending' },
+          { question: 'Я дал книгу друг[...]', options: ['-е', '-у', '-ом', '-а'], correct: 1, type: 'ending' },
         ],
       },
       {
