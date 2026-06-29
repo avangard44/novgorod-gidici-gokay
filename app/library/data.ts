@@ -4,12 +4,19 @@ export type Example = {
   note?: string
 }
 
+export type QuizQuestion = {
+  question: string
+  options: string[]
+  correct: number
+}
+
 export type Topic = {
   id: string
   number: string
   title: string
   explanation: string
   examples: Example[]
+  quiz?: QuizQuestion[]
 }
 
 export type Block = {
@@ -61,6 +68,11 @@ Kelime sonunda veya sağır bir ünsüzden önce gelen sesli ünsüzler, sağır
           { russian: 'объяснить', turkish: 'açıklamak', note: 'ъ → yumuşatmayı engeller' },
           { russian: 'яблоко', turkish: 'elma', note: '[яблака] — iki О da akıyor' },
         ],
+        quiz: [
+          { question: '"хлеб" kelimesi nasıl okunur?', options: ['[хлэб]', '[хлэп]', '[клэп]', '[хлэф]'], correct: 1 },
+          { question: 'Hangi sesli harf vurgusuz pozisyonda А gibi okunur?', options: ['А', 'У', 'О', 'Э'], correct: 2 },
+          { question: '"дверь" kelimesinde ь harfi ne işe yarar?', options: ['Оkunmaz ama R\'yi yumuşatır', 'D\'yi sertleştirir', 'Ayrı bir sesli harf üretir', 'Kelimeyi çoğul yapar'], correct: 0 },
+        ],
       },
       {
         id: '1-2',
@@ -87,6 +99,11 @@ Rusçada cümle vurgusu da önemlidir. Soru cümlelerinde vurgu genellikle soru 
           { russian: 'му́ка', turkish: 'ıstırap, acı', note: 'vurgu başta' },
           { russian: 'хо́ром', turkish: 'koronun, bütün sesin', note: 'vurgu başta' },
           { russian: 'хором́', turkish: 'hep bir ağızdan', note: 'zarfsal kullanım' },
+        ],
+        quiz: [
+          { question: '"за́мок" ne anlama gelir?', options: ['Kilit', 'Kale, şato', 'Kapı', 'Pencere'], correct: 1 },
+          { question: '"замо́к" ne anlama gelir?', options: ['Kale', 'Kapı', 'Kilit', 'Anahtar'], correct: 2 },
+          { question: 'Rusçada vurgu hakkında hangisi doğrudur?', options: ['Her zaman ilk hecede', 'Her zaman son hecede', 'Sabit bir yeri yoktur', 'Sıfatlarda değişir'], correct: 2 },
         ],
       },
       {
@@ -128,6 +145,11 @@ Biyolojik cinsiyeti olan kelimeler her zaman ona göre çekilir:
           { russian: 'дядя', turkish: 'amca, dayı', note: 'ERİL — -я ama biyolojik erkek' },
           { russian: 'время', turkish: 'zaman', note: 'NÖTR — -мя grubu' },
         ],
+        quiz: [
+          { question: '"книга" kelimesinin cinsiyeti nedir?', options: ['Eril', 'Dişil', 'Nötr', 'Belirsiz'], correct: 1 },
+          { question: '"папа" (baba) kelimesi hangi cinsiyettedir?', options: ['Dişil — -а ile biter', 'Nötr', 'Eril — biyolojik erkek', 'Çoğul'], correct: 2 },
+          { question: '-о ile biten isimler hangi cinsiyettedir?', options: ['Eril', 'Dişil', 'Nötr', 'Değişir'], correct: 2 },
+        ],
       },
       {
         id: '1-4',
@@ -167,6 +189,11 @@ Onların: их — değişmez`,
           { russian: 'Наш город красивый.', turkish: 'Bizim şehrimiz güzel.', note: 'наш — eril' },
           { russian: 'Ваша сестра дома?', turkish: 'Sizin kız kardeşiniz evde mi?', note: 'ваша — dişil' },
         ],
+        quiz: [
+          { question: '"Benim kitabım" Rusçada nasıl söylenir?', options: ['Мой книга', 'Моя книга', 'Моё книга', 'Мои книга'], correct: 1 },
+          { question: '"Его машина" ifadesinde "его" neden değişmez?', options: ['Eril zamiri olduğu için', '3. tekil iyelik zamiri değişmez', 'Dişil isimle uyuştuğu için', 'Kural istisnasıdır'], correct: 1 },
+          { question: '"Biz" zamiri Rusçada nedir?', options: ['Вы', 'Они', 'Мы', 'Вам'], correct: 2 },
+        ],
       },
       {
         id: '1-5',
@@ -204,6 +231,11 @@ Soru işareti ve tonlama ile yapılır, ek bir fiil gerekmez:
           { russian: 'Это не стол.', turkish: 'Bu masa değil.', note: 'не ile olumsuz' },
           { russian: 'Где мой телефон?', turkish: 'Benim telefonum nerede?', note: 'где — nerede' },
           { russian: 'Этот дом большой.', turkish: 'Bu ev büyük.', note: 'этот — eril sıfat' },
+        ],
+        quiz: [
+          { question: '"Bu bir kitap." Rusçada nasıl denir?', options: ['Это есть книга.', 'Это книга.', 'Есть книга.', 'Книга это.'], correct: 1 },
+          { question: '"Bu kim?" sorusu Rusçada nasıl sorulur?', options: ['Что это?', 'Где это?', 'Кто это?', 'Как это?'], correct: 2 },
+          { question: '"Это не стол." cümlesinin anlamı nedir?', options: ['Bu masa.', 'Bu bir sandalye.', 'Bu masa değil.', 'Masam yok.'], correct: 2 },
         ],
       },
       {
@@ -246,6 +278,11 @@ Soru işareti ve tonlama ile yapılır, ek bir fiil gerekmez:
           { russian: 'город → города', turkish: 'şehir → şehirler', note: 'düzensiz -а' },
           { russian: 'человек → люди', turkish: 'insan → insanlar', note: 'tamamen düzensiz' },
           { russian: 'ребёнок → дети', turkish: 'çocuk → çocuklar', note: 'tamamen düzensiz' },
+        ],
+        quiz: [
+          { question: '"книга" kelimesinin çoğulu nedir?', options: ['книгы', 'книги', 'книгов', 'книге'], correct: 1 },
+          { question: '"окно" kelimesinin çoğulu nedir?', options: ['окны', 'окни', 'окна', 'окнов'], correct: 2 },
+          { question: '"insan" kelimesinin çoğulu olan "люди" hangi tür çoğuldur?', options: ['Düzenli -ы eki', 'Düzenli -и eki', 'Tamamen düzensiz', '-а eki'], correct: 2 },
         ],
       },
     ],
@@ -296,6 +333,11 @@ Genel kural: mastar -ать ile bitiyorsa çoğunlukla 1. tip; -ить ile bitiy
           { russian: 'Вы понимаете меня?', turkish: 'Beni anlıyor musunuz?', note: 'понимать — 1. tip' },
           { russian: 'Он любит музыку.', turkish: 'O müziği seviyor.', note: 'любить — 2. tip' },
         ],
+        quiz: [
+          { question: '"читать" fiilinin "я" ile çekimi hangisidir?', options: ['я читаю', 'я читаешь', 'я читает', 'я читаю'], correct: 0 },
+          { question: '"говорить" hangi tip çekime girer?', options: ['1. tip', '2. tip', 'Düzensiz', 'Karma'], correct: 1 },
+          { question: '"Ты говоришь по-русски?" ne anlama gelir?', options: ['Rusça yazıyor musun?', 'Rusça anlıyor musun?', 'Rusça biliyor musun?', 'Rusçayı seviyor musun?'], correct: 2 },
+        ],
       },
       {
         id: '2-2',
@@ -331,6 +373,11 @@ Bu ayrım her zaman mantıkla açıklanamaz — ezber gerekir!`,
           { russian: 'Он на работе.', turkish: 'O işte (işyerinde).', note: 'работа → на работе' },
           { russian: 'Дети в парке.', turkish: 'Çocuklar parkta.', note: 'парк → в парке' },
           { russian: 'Я думаю о тебе.', turkish: 'Ben seni düşünüyorum.', note: 'ты → о тебе' },
+        ],
+        quiz: [
+          { question: '"в школе" ne anlama gelir?', options: ['Okula', 'Okuldan', 'Okulda', 'Okul hakkında'], correct: 2 },
+          { question: '"школа" kelimesi Предложный падежde nasıl olur?', options: ['школу', 'школе', 'школы', 'школой'], correct: 1 },
+          { question: '"в" ve "на" edatlarından hangisi kapalı mekânlar için kullanılır?', options: ['на', 'в', 'İkisi de', 'Hiçbiri'], correct: 1 },
         ],
       },
       {
@@ -370,6 +417,11 @@ Nötr isimlerle:
           { russian: 'красивая девушка', turkish: 'güzel kız', note: 'dişil -ая' },
           { russian: 'интересный фильм', turkish: 'ilginç film', note: 'eril -ый' },
           { russian: 'синее небо', turkish: 'mavi gökyüzü', note: 'nötr yumuşak -ее' },
+        ],
+        quiz: [
+          { question: '"новый дом" ifadesinde sıfat eki nedir?', options: ['-ая', '-ое', '-ый', '-ие'], correct: 2 },
+          { question: '"yeni kitap" Rusçada nasıl denir? (книга — dişil)', options: ['новый книга', 'новая книга', 'новое книга', 'новые книга'], correct: 1 },
+          { question: '7 harf kuralına göre г,к,х,ж sonrası hangi ek gelir?', options: ['-ый', '-ой', '-ий', '-ый/-ий'], correct: 2 },
         ],
       },
       {
@@ -421,6 +473,11 @@ Nötr isimlerle:
           { russian: 'Вчера был дождь.', turkish: 'Dün yağmur yağdı.', note: 'вчера' },
           { russian: 'Она говорит тихо.', turkish: 'O sessizce konuşuyor.', note: 'тихо' },
         ],
+        quiz: [
+          { question: '"şimdi" anlamına gelen Rusça zarf hangisidir?', options: ['сегодня', 'сейчас', 'скоро', 'всегда'], correct: 1 },
+          { question: '"всегда" ne anlama gelir?', options: ['Bazen', 'Hiçbir zaman', 'Her zaman', 'Nadiren'], correct: 2 },
+          { question: 'Rusçada zarflar cinsiyete göre değişir mi?', options: ['Evet, daima', 'Sadece sıfatlarla', 'Hayır, değişmez', 'Sadece geçmiş zamanda'], correct: 2 },
+        ],
       },
       {
         id: '2-5',
@@ -457,6 +514,11 @@ Olumsuzda "есть" düşer, "нет" gelir ve nesne İLGİ HALİNE (Родит
           { russian: 'У нас есть кошка.', turkish: 'Bizim bir kedimiz var.', note: 'мы → у нас' },
           { russian: 'У меня был кот.', turkish: 'Bende bir kedi vardı.', note: 'geçmiş — eril' },
           { russian: 'У вас будет время?', turkish: 'Sizin zamanınız olacak mı?', note: 'gelecek' },
+        ],
+        quiz: [
+          { question: '"Bende bir kitap var." Rusçada nasıl denir?', options: ['Я имею книгу.', 'У меня есть книга.', 'Мне есть книга.', 'У меня книга есть.'], correct: 1 },
+          { question: '"У меня нет книги." cümlesinde "книги" hangi haldedir?', options: ['Yalın hal', 'Bulunma hali', 'İlgi hali', 'Belirtme hali'], correct: 2 },
+          { question: '"Onun (dişil) arabası var." Rusçada nasıl denir?', options: ['У него есть машина.', 'У неё есть машина.', 'У ней есть машина.', 'У её есть машина.'], correct: 1 },
         ],
       },
     ],
@@ -501,6 +563,11 @@ Konuşan bir kadınsa: Я читала (Ben okudum — kadın)
           { russian: 'Она была дома.', turkish: 'O evdeydi.', note: 'быть → была (dişil)' },
           { russian: 'Они пришли поздно.', turkish: 'Onlar geç geldi.', note: 'прийти → пришли' },
         ],
+        quiz: [
+          { question: '"O kitap okuyordu." (dişil) Rusçada nasıl denir?', options: ['Она читал книгу.', 'Она читало книгу.', 'Она читала книгу.', 'Она читали книгу.'], correct: 2 },
+          { question: 'Geçmiş zamanda nötr için hangi ek kullanılır?', options: ['-л', '-ла', '-ло', '-ли'], correct: 2 },
+          { question: '"Dün yağmur yağdı." Rusçada nasıl denir?', options: ['Вчера дождь была.', 'Вчера был дождь.', 'Вчера дождь были.', 'Дождь вчера будет.'], correct: 1 },
+        ],
       },
       {
         id: '3-2',
@@ -538,6 +605,11 @@ Tamamlanmış görünüşlü fiil (СВ) şimdiki zaman gibi çekilir ama anlam 
           { russian: 'Они придут завтра.', turkish: 'Onlar yarın gelecekler.', note: 'прийти — СВ' },
           { russian: 'Мы будем учиться весь день.', turkish: 'Biz tüm gün ders çalışacağız.', note: 'НСВ — süre' },
         ],
+        quiz: [
+          { question: 'Bileşik geleceği oluşturmak için hangi yardımcı fiil kullanılır?', options: ['быть', 'есть', 'иметь', 'стать'], correct: 0 },
+          { question: '"Я буду читать" cümlesinin anlamı nedir?', options: ['Kitabı bitireceğim.', 'Okuyacağım (süreç).', 'Okuyordum.', 'Okumak istiyorum.'], correct: 1 },
+          { question: '"прочитаю" hangi görünüşe aittir?', options: ['НСВ — tamamlanmamış', 'СВ — tamamlanmış', 'Düzensiz fiil', 'Geçmiş zaman'], correct: 1 },
+        ],
       },
       {
         id: '3-3',
@@ -572,6 +644,11 @@ Tamamlanmış görünüşlü fiil (СВ) şimdiki zaman gibi çekilir ama anlam 
           { russian: 'один студент', turkish: 'bir öğrenci', note: 'eril' },
           { russian: 'одна студентка', turkish: 'bir öğrenci (kız)', note: 'dişil' },
         ],
+        quiz: [
+          { question: '5 sayısından sonra isim hangi hale girer?', options: ['Yalın tekil', 'İlgi tekil', 'İlgi çoğul', 'Yalın çoğul'], correct: 2 },
+          { question: '"3 книги" ifadesinde "книги" hangi haldedir?', options: ['Yalın çoğul', 'İlgi tekil', 'Belirtme tekil', 'Bulunma hali'], correct: 1 },
+          { question: '"один" sayısı Rusçada ne zaman "одна" olur?', options: ['Çoğul isimlerle', 'Dişil isimlerle', 'Nötr isimlerle', 'Hiçbir zaman'], correct: 1 },
+        ],
       },
       {
         id: '3-4',
@@ -604,6 +681,11 @@ Tamamlanmış görünüşlü fiil (СВ) şimdiki zaman gibi çekilir ama anlam 
           { russian: 'Купи хлеб!', turkish: 'Ekmek al!', note: 'cansız eril — değişmez' },
           { russian: 'Я люблю тебя.', turkish: 'Seni seviyorum.', note: 'ты → тебя' },
           { russian: 'Она ждёт подругу.', turkish: 'O (kız) arkadaşını bekliyor.', note: 'подруга → подругу' },
+        ],
+        quiz: [
+          { question: 'Dişil ismin belirtme hali (-ü/-u) nasıl yapılır?', options: ['-а eki alır', '-а → -у / -я → -ю', '-е eki alır', 'Değişmez'], correct: 1 },
+          { question: '"Мы идём в школу." cümlesinde "школу" hangi haldedir?', options: ['Bulunma', 'Yönelme', 'Belirtme', 'Araç'], correct: 2 },
+          { question: 'Cansız eril belirtme hali yalın ile aynı mıdır?', options: ['Hayır, ilgi hali gibi', 'Evet, değişmez', 'Dişil gibi değişir', 'Sadece fiil ile değişir'], correct: 1 },
         ],
       },
       {
@@ -645,6 +727,11 @@ Tamamlanmış görünüşlü fiil (СВ) şimdiki zaman gibi çekilir ama anlam 
           { russian: 'Вчера мы ходили в кино.', turkish: 'Dün sinemaya gittik.', note: 'gidip döndük' },
           { russian: 'Куда ты идёшь?', turkish: 'Nereye gidiyorsun?', note: 'идти — 2. tekil' },
           { russian: 'Поезд едет быстро.', turkish: 'Tren hızlı gidiyor.', note: 'ехать — araç' },
+        ],
+        quiz: [
+          { question: '"Я иду в школу." cümlesinde öğrenci nereye gidiyor?', options: ['Okuldan geliyor', 'Okulda', 'Okula gidiyor (şu an)', 'Her gün okula gider'], correct: 2 },
+          { question: '"ходить" hangi durumlarda kullanılır?', options: ['Şu an belirli yönde gitme', 'Alışkanlık veya gidip dönme', 'Araçla gitme', 'Koşma'], correct: 1 },
+          { question: 'Araçla gitme için hangi fiil çifti kullanılır?', options: ['идти / ходить', 'бежать / бегать', 'ехать / ездить', 'лететь / летать'], correct: 2 },
         ],
       },
     ],
@@ -691,6 +778,11 @@ Tamamlanmış görünüşlü fiil (СВ) şimdiki zaman gibi çekilir ama anlam 
           { russian: 'Ей скучно.', turkish: 'O sıkılıyor.', note: 'она → ей' },
           { russian: 'Студентам нравится Русский.', turkish: 'Öğrencilere Rusça hoş geliyor.', note: 'çoğul -ам' },
         ],
+        quiz: [
+          { question: '"Mне двадцать лет." cümlesinin anlamı nedir?', options: ['20 yaşındayım.', '20 lira.', '20 dakika var.', '20 yıl geçti.'], correct: 0 },
+          { question: '"сестра" kelimesi Дательный падежde nasıl olur?', options: ['сестры', 'сестре', 'сестру', 'сестрой'], correct: 1 },
+          { question: '"Мне холодно." ne anlama gelir?', options: ['Soğuk hava var.', 'Üşüyorum.', 'Soğuk su istiyorum.', 'Kış soğuk.'], correct: 1 },
+        ],
       },
       {
         id: '4-2',
@@ -726,6 +818,11 @@ Tamamlanmış görünüşlü fiil (СВ) şimdiki zaman gibi çekilir ama anlam 
           { russian: 'Мы едим суп ложкой.', turkish: 'Çorbayı kaşıkla yiyoruz.', note: 'ложка → ложкой' },
           { russian: 'Самолёт летит над морем.', turkish: 'Uçak denizin üzerinden uçuyor.', note: 'над + araç' },
           { russian: 'Кем ты хочешь стать?', turkish: 'Ne olmak istiyorsun?', note: 'кем — soru' },
+        ],
+        quiz: [
+          { question: '"Я пишу ручкой." cümlesinde "ручкой" hangi haldedir?', options: ['Yalın', 'Belirtme', 'Araç', 'Bulunma'], correct: 2 },
+          { question: '"Kalemle" Rusçada nasıl denir? (ручка — kalem)', options: ['ручке', 'ручку', 'ручкой', 'ручки'], correct: 2 },
+          { question: '"с" edatıyla hangi hal kullanılır?', options: ['Yalın', 'Belirtme', 'Araç', 'Yönelme'], correct: 2 },
         ],
       },
       {
@@ -765,6 +862,11 @@ Tamamlanmış görünüşlü fiil (СВ) şimdiki zaman gibi çekilir ama anlam 
           { russian: 'Книга брата на столе.', turkish: 'Erkek kardeşimin kitabı masada.', note: 'sahiplik' },
           { russian: 'Мало времени.', turkish: 'Az vakit.', note: 'мало + ilgi hali' },
         ],
+        quiz: [
+          { question: '"нет" olumsuzluğu hangi hali gerektirir?', options: ['Yalın', 'Belirtme', 'İlgi', 'Yönelme'], correct: 2 },
+          { question: '"из" edatı hangi anlamda kullanılır?', options: ['Neye doğru', 'İçinden çıkma', 'Birliktelik', 'Üzerinde bulunma'], correct: 1 },
+          { question: '"много денег" ifadesinde "денег" hangi haldedir?', options: ['Yalın çoğul', 'Belirtme çoğul', 'İlgi çoğul', 'Araç çoğul'], correct: 2 },
+        ],
       },
       {
         id: '4-4',
@@ -803,6 +905,11 @@ Tamamlanmış görünüşlü fiil (СВ) şimdiki zaman gibi çekilir ama anlam 
           { russian: 'Дом строится.', turkish: 'Ev inşa ediliyor.', note: 'edilgen anlam' },
           { russian: 'Они смеются.', turkish: 'Onlar gülüyor.', note: 'смеяться' },
           { russian: 'Мне нравится эта песня.', turkish: 'Bu şarkı benim hoşuma gidiyor.', note: 'нравиться' },
+        ],
+        quiz: [
+          { question: 'Dönüşlü fiiller hangi ek alır?', options: ['-ся / -сь', '-ть / -ти', '-ый / -ий', '-ал / -ила'], correct: 0 },
+          { question: '"учусь" kelimesi neden -сь ile biter?', options: ['Ünsüzden sonra', 'Sesliden sonra', 'Her zaman', 'Soru cümlesinde'], correct: 1 },
+          { question: '"бояться" fiilinin anlamı nedir?', options: ['Sevmek', 'Korkmak', 'Gülmek', 'Gülümsemek'], correct: 1 },
         ],
       },
       {
@@ -848,6 +955,11 @@ Bileşik karşılaştırma (çekimlenir):
           { russian: 'Это хуже, чем я думал.', turkish: 'Bu beklediğimden dötü.', note: 'чем — dan/den' },
           { russian: 'Она моложе сестры.', turkish: 'O kız kardeşinden daha genç.', note: 'молодой → моложе' },
           { russian: 'Самое интересное кино.', turkish: 'En ilginç film.', note: 'самое + nötr' },
+        ],
+        quiz: [
+          { question: '"хороший" kelimesinin karşılaştırma derecesi nedir?', options: ['хорошее', 'хорошее', 'лучше', 'больше'], correct: 2 },
+          { question: '"En güzel şehir" Rusçada nasıl denir?', options: ['Самый красивый город', 'Самая красивый город', 'Более красивый город', 'Красивейший городе'], correct: 0 },
+          { question: '"больше" hangi sıfatın karşılaştırma derecesidir?', options: ['маленький', 'большой', 'много', 'плохой'], correct: 1 },
         ],
       },
     ],
@@ -898,6 +1010,11 @@ Bileşik karşılaştırma (çekimlenir):
           { russian: 'Он долго учил слова. (НСВ)', turkish: 'Kelimeleri uzun süre öğrendi.', note: 'НСВ — долго ile' },
           { russian: 'Он выучил все слова. (СВ)', turkish: 'Tüm kelimeleri öğrendi (ezberledi).', note: 'СВ — все ile' },
         ],
+        quiz: [
+          { question: 'НСВ (tamamlanmamış görünüş) ne zaman kullanılır?', options: ['Sadece geçmişte', 'Sadece gelecekte', 'Süreç, alışkanlık, tekrar', 'Sonuç anlatmak için'], correct: 2 },
+          { question: '"прочитать" hangi görünüşe aittir?', options: ['НСВ', 'СВ', 'İkisine de', 'Hiçbirine'], correct: 1 },
+          { question: 'СВ (tamamlanmış görünüş) şimdiki zamanda kullanılır mı?', options: ['Evet, her zaman', 'Hayır, kullanılmaz', 'Sadece soruyla', 'Sadece olumsuzda'], correct: 1 },
+        ],
       },
       {
         id: '5-2',
@@ -944,6 +1061,11 @@ Bileşik karşılaştırma (çekimlenir):
           { russian: 'Переходите дорогу осторожно!', turkish: 'Yolu dikkatli geçin!', note: 'переходить — НСВ' },
           { russian: 'Поезд приехал на станцию.', turkish: 'Tren istasyona geldi.', note: 'приехать — СВ' },
         ],
+        quiz: [
+          { question: '"при-" ön eki hareket fiillerinde ne anlam katar?', options: ['Ayrılma, gitme', 'Gelme, ulaşma', 'İçeri girme', 'Geçme'], correct: 1 },
+          { question: '"уйти" ne anlama gelir?', options: ['Gelmek', 'İçeri girmek', 'Ayrılmak, gitmek (yaya)', 'Uğramak'], correct: 2 },
+          { question: '"Войдите!" emrinin anlamı nedir?', options: ['Çıkın!', 'Girin!', 'Geçin!', 'Durun!'], correct: 1 },
+        ],
       },
       {
         id: '5-3',
@@ -987,6 +1109,11 @@ Bileşik karşılaştırma (çekimlenir):
           { russian: 'Пиши каждый день!', turkish: 'Her gün yaz!', note: 'писать → пиши' },
           { russian: 'Будьте добры!', turkish: 'Lütfen (nezaket ifadesi).', note: 'быть → будьте' },
         ],
+        quiz: [
+          { question: '"Читай!" emrinin saygı/çoğul formu nedir?', options: ['Читаешь!', 'Читайте!', 'Читает!', 'Читали!'], correct: 1 },
+          { question: 'Olumsuz emir (не + ...) hangi görünüşü kullanır?', options: ['СВ', 'НСВ', 'Her ikisi de olur', 'Sadece geçmiş'], correct: 1 },
+          { question: '"дать" fiilinin emir kipi nedir?', options: ['дай', 'дайте', 'давай', 'дай / дайте'], correct: 3 },
+        ],
       },
       {
         id: '5-4',
@@ -1028,6 +1155,11 @@ Fiil (geçmiş zaman) + бы
           { russian: 'Вы не могли бы открыть окно?', turkish: 'Pencereyi açabilir misiniz?', note: 'kibarca rica' },
           { russian: 'Лучше бы ты промолчал.', turkish: 'Sussaydın daha iyi olurdu.', note: 'pişmanlık' },
           { russian: 'Я пришёл, чтобы помочь.', turkish: 'Yardım etmek için geldim.', note: 'amaç cümlesi' },
+        ],
+        quiz: [
+          { question: 'Dilek-şart kipi nasıl yapılır?', options: ['Mastar + бы', 'Geçmiş zaman + бы', 'Şimdiki zaman + бы', 'Gelecek zaman + бы'], correct: 1 },
+          { question: '"Я бы хотел кофе." cümlesinin tonu nedir?', options: ['Emir', 'Şikayet', 'Kibarca istek', 'Soru'], correct: 2 },
+          { question: '"чтобы" bağlacı hangi kiple birlikte kullanılır?', options: ['Emir kipi', 'Dilek-şart kipi', 'Şimdiki zaman', 'Gelecek zaman'], correct: 1 },
         ],
       },
       {
@@ -1075,6 +1207,11 @@ Fiil (geçmiş zaman) + бы
           { russian: 'О чём вы говорите?', turkish: 'Neden (ne hakkında) konuşuyorsunuz?', note: 'о чём — bulunma' },
           { russian: 'С кем ты пришёл?', turkish: 'Kiminle geldin?', note: 'с кем — araç hali' },
         ],
+        quiz: [
+          { question: '"новый" sıfatı ilgi halinde eril için nasıl değişir?', options: ['нового', 'новую', 'новом', 'новому'], correct: 0 },
+          { question: '"О чём вы говорите?" cümlesinin anlamı nedir?', options: ['Kimden konuşuyorsunuz?', 'Nerede konuşuyorsunuz?', 'Ne hakkında konuşuyorsunuz?', 'Kiminle konuşuyorsunuz?'], correct: 2 },
+          { question: '"кому" hangi halin soru zamiridir?', options: ['İlgi', 'Yönelme', 'Araç', 'Bulunma'], correct: 1 },
+        ],
       },
     ],
   },
@@ -1121,6 +1258,11 @@ Bağlı oldukları ismin cinsiyeti, sayısı ve haline göre değişirler.`,
           { russian: 'любимый город', turkish: 'sevgili şehir (sevilen)', note: 'edilgen şimdiki' },
           { russian: 'пришедший вовремя', turkish: 'zamanında gelmiş olan', note: 'etken geçmiş' },
         ],
+        quiz: [
+          { question: '"читающий" ortacı ne anlama gelir?', options: ['Okumuş olan', 'Okuyacak olan', 'Okuyan (şu an)', 'Okutulmuş'], correct: 2 },
+          { question: '"прочитанная книга" ne anlama gelir?', options: ['Okunacak kitap', 'Okunmuş kitap', 'Okuyan kitap', 'Kitap okumak'], correct: 1 },
+          { question: 'Ortaçlar hangi sözcük türü gibi çekilir?', options: ['Fiil', 'Zarf', 'Sıfat', 'Zamir'], correct: 2 },
+        ],
       },
       {
         id: '6-2',
@@ -1157,6 +1299,11 @@ Ulaçtaki özne ile ana cümlenin öznesi AYNI kişi olmalıdır!
           { russian: 'Улыбаясь, она сказала...', turkish: 'Gülümseyerek dedi ki...', note: 'стиль — edebi' },
           { russian: 'Сделав работу, он отдохнул.', turkish: 'İşi bitirdikten sonra dinlendi.', note: 'СВ + ardışık' },
           { russian: 'Живя в Москве, он выучил русский.', turkish: 'Moskova\'da yaşayarak Rusça öğrendi.', note: 'НСВ + süre' },
+        ],
+        quiz: [
+          { question: 'НСВ ulaçları nasıl yapılır?', options: ['Geçmiş kök + -в', 'Şimdiki kök + -а/-я', 'Mastar + бы', 'Emir kipi + -а'], correct: 1 },
+          { question: '"Прочитав письмо, он ответил." cümlesinin anlamı nedir?', options: ['Mektup yazarken cevapladı.', 'Mektubu okuduktan sonra cevapladı.', 'Mektubu okumadan cevapladı.', 'Cevaplarken okudu.'], correct: 1 },
+          { question: 'Ulaçta özne ile ana cümlenin öznesi aynı mı olmalıdır?', options: ['Hayır, farklı olabilir', 'Evet, aynı olmalıdır', 'Sadece СВ için aynı', 'Sadece НСВ için aynı'], correct: 1 },
         ],
       },
       {
@@ -1197,6 +1344,11 @@ Uzun formun sonu (-ый/-ий/-ая/-ое/-ые) kaldırılır, cinsiyete göre 
           { russian: 'Комната свободна.', turkish: 'Oda serbest (boş).', note: 'свободна — dişil' },
           { russian: 'Они рады нашему приезду.', turkish: 'Gelişimize sevindiler.', note: 'рады — çoğul' },
         ],
+        quiz: [
+          { question: '"должен" kelimesi ne anlama gelir?', options: ['İstiyorum', 'Zorundayım / -meli', 'Hazırım', 'Memnunum'], correct: 1 },
+          { question: '"Она больна." cümlesinde "больна" nedir?', options: ['Uzun form sıfat', 'Zarf', 'Kısa form sıfat', 'Fiil'], correct: 2 },
+          { question: '"рад" kelimesi tam (uzun) forma döndürülebilir mi?', options: ['Evet, радный', 'Evet, радой', 'Hayır, yalnızca kısa form', 'Sadece dişil için'], correct: 2 },
+        ],
       },
       {
         id: '6-4',
@@ -1234,6 +1386,11 @@ Doğrudan: "Приди!" → Dolaylı: Он сказал, чтобы я приш
           { russian: 'Книга, которую я читаю...', turkish: 'Okuduğum kitap...', note: 'которую — dişil belirtme' },
           { russian: 'Город, в котором я живу.', turkish: 'Yaşadığım şehir.', note: 'котором — eril bulunma' },
           { russian: 'Она просит, чтобы мы помогли.', turkish: 'Yardım etmemizi istiyor.', note: 'çтобы + istek' },
+        ],
+        quiz: [
+          { question: '"который" kelimesi nasıl kullanılır?', options: ['Değişmez bir bağlaç', 'Cinsiyete ve hale göre çekilir', 'Sadece eril için', 'Sadece yalın halde'], correct: 1 },
+          { question: '"ли" parçacığı ne zaman kullanılır?', options: ['Her dolaylı anlatımda', 'Evet/hayır sorularında', 'Sadece istemlerde', 'Sadece geçmişte'], correct: 1 },
+          { question: '"Он сказал, что устал." cümlesinde "что" ne işlevi görür?', options: ['Soru kelimesi', 'Dolaylı anlatım bağlacı', 'Zamir', 'Edat'], correct: 1 },
         ],
       },
       {
@@ -1284,6 +1441,11 @@ Doğrudan: "Приди!" → Dolaylı: Он сказал, чтобы я приш
           { russian: 'Нет пяти минут.', turkish: 'Beş dakika yok.', note: 'пяти — ilgi' },
           { russian: 'С пятьюстами рублями.', turkish: 'Beşyüz ruble ile.', note: 'karmaşık araç hali' },
           { russian: 'Около ста человек.', turkish: 'Yaklaşık yüz kişi.', note: 'ста — ilgi hali' },
+        ],
+        quiz: [
+          { question: '"два" sayısı dişil isimlerle nasıl değişir?', options: ['iki для dişil', 'два her zaman', 'две', 'двух'], correct: 2 },
+          { question: '"пять" sayısı araç halinde nasıl olur?', options: ['пяти', 'пятью', 'пятей', 'пяты'], correct: 1 },
+          { question: '"один" sayısının eril ilgi hali nedir?', options: ['одному', 'одним', 'одного', 'одной'], correct: 2 },
         ],
       },
     ],
