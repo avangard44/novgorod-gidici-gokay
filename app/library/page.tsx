@@ -210,29 +210,39 @@ function MobileTopicList({
   )
 }
 
-/* ── Speak button (Web Speech API) ── */
+/* ── Speak button (ElevenLabs TTS) ── */
 function SpeakButton({ text }: { text: string }) {
-  const [speaking, setSpeaking] = useState(false)
+  const [loading, setLoading] = useState(false)
 
-  const speak = useCallback(() => {
-    if (typeof window === 'undefined' || !window.speechSynthesis) return
-    window.speechSynthesis.cancel()
-    const utt = new SpeechSynthesisUtterance(text)
-    utt.lang = 'ru-RU'
-    utt.rate = 0.85
-    utt.onstart = () => setSpeaking(true)
-    utt.onend = () => setSpeaking(false)
-    utt.onerror = () => setSpeaking(false)
-    window.speechSynthesis.speak(utt)
-  }, [text])
+  const speak = useCallback(async () => {
+    if (loading) return
+    setLoading(true)
+    try {
+      const res = await fetch('/api/tts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text }),
+      })
+      if (!res.ok) throw new Error('TTS failed')
+      const blob = await res.blob()
+      const url = URL.createObjectURL(blob)
+      const audio = new Audio(url)
+      audio.onended = () => URL.revokeObjectURL(url)
+      audio.play()
+    } catch {
+      // silent — user will notice no sound
+    } finally {
+      setLoading(false)
+    }
+  }, [text, loading])
 
   return (
     <button
       onClick={speak}
       aria-label="Seslendir"
       className={`inline-flex items-center justify-center w-6 h-6 rounded-md transition-colors shrink-0
-        ${speaking
-          ? 'text-violet-400 bg-violet-500/20'
+        ${loading
+          ? 'text-violet-400 bg-violet-500/20 animate-pulse'
           : 'text-slate-600 hover:text-violet-400 hover:bg-violet-500/10'}`}
     >
       <Volume2 size={12} />
