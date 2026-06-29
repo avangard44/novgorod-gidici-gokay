@@ -1,122 +1,114 @@
 import Link from 'next/link'
+import { BookOpen, Gamepad2, Languages, ArrowRight } from 'lucide-react'
+
+const cards = [
+  {
+    href: '/library',
+    icon: BookOpen,
+    title: 'Kütüphane',
+    sub: 'Dilbilgisi Kuralları',
+    desc: 'Cinsiyet, hâl ekleri, fiil çekimi — her konu için net açıklama ve örnekler.',
+    accent: 'from-blue-500/20 to-indigo-500/10',
+    glow: 'group-hover:shadow-[0_0_40px_rgba(99,102,241,0.18)]',
+    iconColor: 'text-blue-400',
+    iconBg: 'bg-blue-500/10 group-hover:bg-blue-500/20',
+    arrow: 'group-hover:text-blue-400',
+  },
+  {
+    href: '/game/gender-nouns',
+    icon: Gamepad2,
+    title: 'Oyun Alanı',
+    sub: 'Alıştırma & Test',
+    desc: '3 can, anlık geri bildirim ve puan tablosu. Boşlukları doğru doldur, seviye atla.',
+    accent: 'from-violet-500/20 to-purple-500/10',
+    glow: 'group-hover:shadow-[0_0_40px_rgba(139,92,246,0.18)]',
+    iconColor: 'text-violet-400',
+    iconBg: 'bg-violet-500/10 group-hover:bg-violet-500/20',
+    arrow: 'group-hover:text-violet-400',
+  },
+  {
+    href: '/translator',
+    icon: Languages,
+    title: 'Çevirmen',
+    sub: 'Yakında',
+    desc: 'Rusça ↔ Türkçe anlık çeviri ve sözlük. Çok yakında hizmetinizde.',
+    accent: 'from-cyan-500/20 to-teal-500/10',
+    glow: 'group-hover:shadow-[0_0_40px_rgba(34,211,238,0.12)]',
+    iconColor: 'text-cyan-400',
+    iconBg: 'bg-cyan-500/10 group-hover:bg-cyan-500/20',
+    arrow: 'group-hover:text-cyan-400',
+  },
+]
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#0f0f14] text-white flex flex-col">
-      {/* Nav */}
-      <nav className="px-6 py-4 flex items-center justify-between border-b border-white/5">
-        <span className="text-sm font-semibold tracking-widest text-white/40 uppercase">
-          NGG
-        </span>
-        <div className="flex items-center gap-6 text-sm text-white/40">
-          <Link href="/library" className="hover:text-white transition-colors">Kütüphane</Link>
-          <Link href="/game/gender-nouns" className="hover:text-white transition-colors">Oyun</Link>
-        </div>
-      </nav>
+    <div className="min-h-full flex flex-col justify-center px-8 py-12 max-w-3xl mx-auto">
 
       {/* Hero */}
-      <main className="flex-1 flex flex-col items-center justify-center px-4 py-16 text-center">
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 text-white/50 text-xs font-medium px-4 py-1.5 rounded-full mb-10 tracking-wide">
+      <div className="mb-14">
+        <div className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs
+          text-slate-400 mb-8 tracking-wide">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
           Rusça öğrenmeye hazır mısınız?
         </div>
 
-        {/* Title */}
-        <h1 className="text-5xl sm:text-7xl font-black tracking-tight leading-none mb-4">
+        <h1 className="text-5xl sm:text-6xl font-black tracking-tight leading-[1.05] mb-5">
           <span className="text-white">Novgorod</span>
           <br />
-          <span className="bg-gradient-to-r from-red-400 via-orange-300 to-yellow-400 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-violet-400 via-blue-400 to-cyan-400
+            bg-clip-text text-transparent">
             Gidici Gökay
           </span>
         </h1>
 
-        {/* Subtitle */}
-        <p className="text-white/50 text-lg sm:text-xl mt-6 mb-4 max-w-md leading-relaxed">
-          Oyun oynayarak Rusça dilbilgisi öğrenin!
+        <p className="text-slate-400 text-lg leading-relaxed max-w-md">
+          Oyun oynayarak Rusça dilbilgisi öğrenin.{' '}
+          <span className="text-slate-300">Kuralları keşfet, alıştırma yap, seviye atla.</span>
         </p>
+      </div>
 
-        {/* Concept description */}
-        <p className="text-white/30 text-sm max-w-sm leading-relaxed mb-14">
-          <span className="text-white/50 font-medium">Kütüphane</span>'de kuralları keşfedin,{' '}
-          <span className="text-white/50 font-medium">Oyun Alanı</span>'nda pekiştirin.
-          Her alıştırma sizi bir adım daha ileri taşır.
-        </p>
-
-        {/* CTA cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-2xl">
-          {/* Library card */}
+      {/* Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        {cards.map(({ href, icon: Icon, title, sub, desc, accent, glow, iconColor, iconBg, arrow }) => (
           <Link
-            href="/library"
-            className="group relative bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/25 rounded-2xl p-7 text-left transition-all duration-300 overflow-hidden"
+            key={href}
+            href={href}
+            className={`group relative glass glass-hover rounded-2xl p-6 flex flex-col
+              transition-all duration-300 ${glow} overflow-hidden`}
           >
-            {/* Glow */}
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
+            {/* Gradient tint */}
+            <div className={`absolute inset-0 bg-gradient-to-br ${accent} opacity-0
+              group-hover:opacity-100 transition-opacity duration-300 rounded-2xl`} />
 
-            <div className="relative">
-              <div className="w-12 h-12 bg-blue-500/15 group-hover:bg-blue-500/25 rounded-xl flex items-center justify-center text-2xl mb-5 transition-colors duration-300">
-                📚
+            <div className="relative flex flex-col flex-1">
+              <div className={`w-10 h-10 rounded-xl ${iconBg} flex items-center justify-center
+                mb-4 transition-colors duration-200`}>
+                <Icon size={18} strokeWidth={1.6} className={iconColor} />
               </div>
-              <h2 className="text-lg font-bold text-white mb-1.5 group-hover:text-blue-300 transition-colors duration-200">
-                Kütüphane
-              </h2>
-              <p className="text-white/40 text-sm leading-relaxed">
-                Dilbilgisi kurallarını kategorilere göre inceleyin. Her konuda örnekler ve açıklamalar.
-              </p>
-              <div className="mt-5 flex items-center gap-1.5 text-xs text-blue-400/60 group-hover:text-blue-400 transition-colors duration-200 font-medium">
-                Kuralları Keşfet
-                <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>
+
+              <p className="text-[10px] text-slate-600 uppercase tracking-widest mb-1">{sub}</p>
+              <h2 className="text-base font-bold text-white mb-2">{title}</h2>
+              <p className="text-slate-500 text-sm leading-relaxed flex-1">{desc}</p>
+
+              <div className={`mt-5 flex items-center gap-1 text-xs text-slate-600
+                ${arrow} transition-colors duration-200 font-medium`}>
+                Keşfet
+                <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform duration-200" />
               </div>
             </div>
           </Link>
+        ))}
+      </div>
 
-          {/* Game card */}
-          <Link
-            href="/game/gender-nouns"
-            className="group relative bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/25 rounded-2xl p-7 text-left transition-all duration-300 overflow-hidden"
-          >
-            {/* Glow */}
-            <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
-
-            <div className="relative">
-              <div className="w-12 h-12 bg-red-500/15 group-hover:bg-red-500/25 rounded-xl flex items-center justify-center text-2xl mb-5 transition-colors duration-300">
-                🎮
-              </div>
-              <h2 className="text-lg font-bold text-white mb-1.5 group-hover:text-red-300 transition-colors duration-200">
-                Oyun Alanı
-              </h2>
-              <p className="text-white/40 text-sm leading-relaxed">
-                Boşluk doldurun, doğru cevabı seçin. 3 can, puan tablosu ve anlık geri bildirim.
-              </p>
-              <div className="mt-5 flex items-center gap-1.5 text-xs text-red-400/60 group-hover:text-red-400 transition-colors duration-200 font-medium">
-                Oynamaya Başla
-                <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>
-              </div>
-            </div>
-          </Link>
-        </div>
-
-        {/* Stats row */}
-        <div className="flex items-center gap-8 mt-14 text-center">
-          {[
-            { value: '8', label: 'Konu' },
-            { value: '40+', label: 'Soru' },
-            { value: '5', label: 'Kategori' },
-          ].map(({ value, label }) => (
-            <div key={label}>
-              <p className="text-2xl font-black text-white">{value}</p>
-              <p className="text-xs text-white/30 mt-0.5 uppercase tracking-widest">{label}</p>
-            </div>
-          ))}
-        </div>
-      </main>
-
-      {/* Footer */}
-      <footer className="px-6 py-4 border-t border-white/5 text-center">
-        <p className="text-white/20 text-xs tracking-wide">
-          Привет! Добро пожаловать 🇷🇺 — Rusça dilbilgisi platformu
-        </p>
-      </footer>
+      {/* Stats */}
+      <div className="flex items-center gap-10 mt-14">
+        {[['8', 'Konu'], ['40+', 'Soru'], ['3', 'Modül']].map(([val, label]) => (
+          <div key={label}>
+            <p className="text-2xl font-black text-white">{val}</p>
+            <p className="text-[10px] text-slate-600 uppercase tracking-widest mt-0.5">{label}</p>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }

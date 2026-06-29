@@ -340,10 +340,10 @@ export default function GamePage() {
 
   const bgClass =
     answerState === 'correct'
-      ? 'bg-green-50'
+      ? 'bg-green-950/30'
       : answerState === 'wrong'
-      ? 'bg-red-50'
-      : 'bg-gray-50'
+      ? 'bg-red-950/30'
+      : ''
 
   if (gameOver) {
     return <EndScreen type="gameover" score={score} topicId={topicId} total={questions.length} />
@@ -353,11 +353,11 @@ export default function GamePage() {
   }
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${bgClass}`}>
+    <div className={`min-h-full transition-colors duration-300 ${bgClass}`}>
       {/* Top bar */}
-      <header className="bg-white border-b border-gray-100 px-4 py-3 shadow-sm">
+      <header className="glass border-b border-white/8 px-4 py-3">
         <div className="max-w-lg mx-auto flex items-center justify-between">
-          <Link href="/library" className="text-gray-400 hover:text-gray-600 transition-colors text-sm">
+          <Link href="/library" className="text-slate-500 hover:text-white transition-colors text-sm">
             ← Çık
           </Link>
 
@@ -383,9 +383,9 @@ export default function GamePage() {
       </header>
 
       {/* Progress bar */}
-      <div className="h-1.5 bg-gray-200">
+      <div className="h-1 bg-white/6">
         <div
-          className="h-full bg-red-600 transition-all duration-500"
+          className="h-full bg-violet-500 transition-all duration-500"
           style={{ width: `${((current + (answerState !== 'idle' ? 1 : 0)) / questions.length) * 100}%` }}
         />
       </div>
@@ -402,12 +402,12 @@ export default function GamePage() {
 
         {/* Sentence card */}
         <div
-          className={`rounded-2xl p-6 shadow-sm border-2 transition-all duration-300 ${
+          className={`rounded-2xl p-6 border-2 transition-all duration-300 ${
             answerState === 'correct'
-              ? 'border-green-400 bg-green-50'
+              ? 'border-green-500/50 bg-green-950/20'
               : answerState === 'wrong'
-              ? 'border-red-300 bg-red-50'
-              : 'border-gray-100 bg-white'
+              ? 'border-red-500/50 bg-red-950/20'
+              : 'border-white/8 bg-white/4 backdrop-blur-md'
           }`}
         >
           <p className="text-center text-gray-500 text-xs uppercase tracking-wide mb-3">
@@ -430,10 +430,10 @@ export default function GamePage() {
         {/* Explanation */}
         {showExplanation && (
           <div
-            className={`rounded-xl px-4 py-3 text-sm text-center transition-all ${
+            className={`rounded-xl px-4 py-3 text-sm text-center transition-all border ${
               answerState === 'correct'
-                ? 'bg-green-100 text-green-800'
-                : 'bg-red-100 text-red-800'
+                ? 'bg-green-950/30 border-green-500/20 text-green-300'
+                : 'bg-red-950/30 border-red-500/20 text-red-300'
             }`}
           >
             💡 {q.explanation}
@@ -444,15 +444,15 @@ export default function GamePage() {
         <div className="grid grid-cols-2 gap-3">
           {q.options.map((opt, idx) => {
             let style =
-              'bg-white border-2 border-gray-200 text-gray-700 hover:border-red-400 hover:text-red-700 hover:shadow-sm'
+              'glass glass-hover border-white/10 text-slate-300 hover:text-white'
 
             if (answerState !== 'idle') {
               if (idx === q.correctIndex) {
-                style = 'bg-green-500 border-2 border-green-500 text-white shadow-lg scale-105'
+                style = 'bg-green-500/80 border-2 border-green-400 text-white shadow-lg shadow-green-900/40 scale-105'
               } else if (idx === selectedIndex && selectedIndex !== q.correctIndex) {
-                style = 'bg-red-500 border-2 border-red-500 text-white animate-shake'
+                style = 'bg-red-500/80 border-2 border-red-400 text-white animate-shake'
               } else {
-                style = 'bg-white border-2 border-gray-100 text-gray-300 cursor-default'
+                style = 'bg-white/3 border-white/5 text-slate-600 cursor-default'
               }
             }
 
@@ -476,7 +476,7 @@ export default function GamePage() {
         {answerState !== 'idle' && (
           <button
             onClick={handleNext}
-            className="w-full bg-red-700 text-white font-bold py-4 rounded-xl hover:bg-red-800 transition-colors shadow-md"
+            className="w-full bg-violet-600/80 hover:bg-violet-600 text-white font-bold py-4 rounded-xl transition-colors shadow-lg shadow-violet-900/40"
           >
             {current + 1 >= questions.length ? 'Bitir →' : 'Devam Et →'}
             <span className="ml-2 text-xs opacity-60">(Enter)</span>
@@ -504,13 +504,13 @@ function SentenceDisplay({
 
   const blankContent =
     answerState === 'idle' ? (
-      <span className="inline-block border-b-2 border-dashed border-gray-400 w-20 mx-1 align-bottom" />
+      <span className="inline-block border-b-2 border-dashed border-slate-500 w-20 mx-1 align-bottom" />
     ) : (
       <span
         className={`inline-block font-bold px-2 py-0.5 rounded mx-1 transition-all ${
           answerState === 'correct'
-            ? 'bg-green-200 text-green-800'
-            : 'bg-red-200 text-red-800 line-through'
+            ? 'bg-green-500/20 text-green-300'
+            : 'bg-red-500/20 text-red-300 line-through'
         }`}
       >
         {selectedOption}
@@ -523,7 +523,7 @@ function SentenceDisplay({
     )
 
   return (
-    <p className="text-xl text-center text-gray-800 leading-relaxed font-medium">
+    <p className="text-xl text-center text-slate-100 leading-relaxed font-medium">
       {before}
       {blankContent}
       {after}
@@ -544,33 +544,33 @@ function EndScreen({
 }) {
   const isWin = type === 'win'
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-3xl shadow-xl p-8 max-w-sm w-full text-center">
+    <div className="min-h-full flex items-center justify-center p-4">
+      <div className="glass border border-white/10 rounded-3xl shadow-2xl p-8 max-w-sm w-full text-center">
         <div className="text-6xl mb-4">{isWin ? '🏆' : '💔'}</div>
-        <h2 className="text-2xl font-bold text-gray-800 mb-1">
+        <h2 className="text-2xl font-bold text-white mb-1">
           {isWin ? 'Tebrikler!' : 'Oyun Bitti'}
         </h2>
-        <p className="text-gray-500 mb-6">
+        <p className="text-slate-500 mb-6 text-sm">
           {isWin
             ? `${total} soruyu tamamladınız!`
             : 'Canlarınız bitti. Tekrar deneyin!'}
         </p>
 
-        <div className="bg-yellow-50 rounded-2xl py-4 mb-6">
-          <p className="text-yellow-600 text-sm font-medium">Toplam Puan</p>
-          <p className="text-4xl font-bold text-yellow-700">⭐ {score}</p>
+        <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-2xl py-4 mb-6">
+          <p className="text-yellow-500/70 text-xs font-medium uppercase tracking-widest">Toplam Puan</p>
+          <p className="text-4xl font-bold text-yellow-400 mt-1">⭐ {score}</p>
         </div>
 
         <div className="space-y-3">
           <Link
             href={`/game/${topicId}`}
-            className="block w-full bg-red-700 text-white font-bold py-3 rounded-xl hover:bg-red-800 transition-colors"
+            className="block w-full bg-violet-600/80 hover:bg-violet-600 text-white font-bold py-3 rounded-xl transition-colors"
           >
             Tekrar Oyna
           </Link>
           <Link
             href="/library"
-            className="block w-full bg-gray-100 text-gray-600 font-semibold py-3 rounded-xl hover:bg-gray-200 transition-colors"
+            className="block w-full glass glass-hover text-slate-400 hover:text-white font-semibold py-3 rounded-xl transition-colors"
           >
             Kitaplığa Dön
           </Link>

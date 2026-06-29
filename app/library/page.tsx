@@ -146,117 +146,116 @@ export default function LibraryPage() {
       : topics.filter((t) => t.category === activeCategory)
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-full px-6 py-8 max-w-4xl mx-auto">
       {/* Header */}
-      <header className="bg-gradient-to-r from-red-700 to-red-900 text-white px-4 py-5 shadow-lg">
-        <div className="max-w-4xl mx-auto flex items-center gap-3">
-          <Link href="/" className="text-red-200 hover:text-white text-sm transition-colors">
-            ← Ana Sayfa
-          </Link>
-          <span className="text-red-400">/</span>
-          <h1 className="text-xl font-bold">📚 Dilbilgisi Kitaplığı</h1>
-        </div>
-      </header>
+      <div className="mb-8">
+        <p className="text-[10px] text-slate-600 uppercase tracking-widest mb-2">Kütüphane</p>
+        <h1 className="text-2xl font-black text-white">Dilbilgisi Konuları</h1>
+        <p className="text-slate-500 text-sm mt-1">Bir konuya tıkla, kuralı gör ve hemen alıştırma yap.</p>
+      </div>
 
-      <div className="max-w-4xl mx-auto px-4 py-8">
-        {/* Category filter */}
-        <div className="flex flex-wrap gap-2 mb-8">
-          {['Tümü', ...categories].map((cat) => (
+      {/* Category filter */}
+      <div className="flex flex-wrap gap-2 mb-7">
+        {['Tümü', ...categories].map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setActiveCategory(cat)}
+            className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
+              activeCategory === cat
+                ? 'bg-violet-600/80 text-white shadow shadow-violet-900/40'
+                : 'glass text-slate-400 hover:text-white hover:border-white/20'
+            }`}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      {/* Topic grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {filtered.map((topic) => (
+          <div
+            key={topic.id}
+            className="glass glass-hover rounded-2xl p-5 transition-all duration-300 group cursor-pointer"
+          >
             <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${
-                activeCategory === cat
-                  ? 'bg-red-700 text-white shadow'
-                  : 'bg-white text-gray-600 border border-gray-200 hover:border-red-300 hover:text-red-700'
-              }`}
+              onClick={() => setSelectedTopic(topic)}
+              className="flex items-start gap-4 w-full text-left"
             >
-              {cat}
+              <span className="text-2xl mt-0.5">{topic.icon}</span>
+              <div className="flex-1 min-w-0">
+                <span className="text-[10px] font-medium text-violet-400 uppercase tracking-widest">
+                  {topic.category}
+                </span>
+                <h2 className="font-bold text-slate-100 text-sm mt-0.5 group-hover:text-white transition-colors">
+                  {topic.title}
+                </h2>
+                <p className="text-slate-600 text-xs mt-1 line-clamp-2 leading-relaxed">{topic.description}</p>
+              </div>
+              <span className="text-slate-700 group-hover:text-violet-400 transition-colors text-base mt-0.5">›</span>
             </button>
-          ))}
-        </div>
-
-        {/* Topic grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {filtered.map((topic) => (
-            <div
-              key={topic.id}
-              className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md hover:border-red-200 transition-all group"
-            >
+            <div className="mt-3 pt-3 border-t border-white/6 flex gap-2">
               <button
                 onClick={() => setSelectedTopic(topic)}
-                className="flex items-start gap-4 w-full text-left"
+                className="flex-1 text-xs text-slate-500 hover:text-slate-300 py-1.5 rounded-lg
+                  hover:bg-white/5 transition-colors"
               >
-                <span className="text-3xl">{topic.icon}</span>
-                <div className="flex-1 min-w-0">
-                  <span className="text-xs font-medium text-red-500 uppercase tracking-wide">
-                    {topic.category}
-                  </span>
-                  <h2 className="font-bold text-gray-800 text-base mt-0.5 group-hover:text-red-700 transition-colors">
-                    {topic.title}
-                  </h2>
-                  <p className="text-gray-500 text-sm mt-1 line-clamp-2">{topic.description}</p>
-                </div>
-                <span className="text-gray-300 group-hover:text-red-400 transition-colors text-lg">›</span>
+                📖 Kuralı Gör
               </button>
-              <div className="mt-3 pt-3 border-t border-gray-100 flex gap-2">
-                <button
-                  onClick={() => setSelectedTopic(topic)}
-                  className="flex-1 text-xs text-gray-500 hover:text-red-600 py-1.5 rounded-lg hover:bg-red-50 transition-colors"
-                >
-                  📖 Kuralı Gör
-                </button>
-                <Link
-                  href={`/game/${topic.id}`}
-                  className="flex-1 text-xs font-semibold text-white bg-red-600 hover:bg-red-700 py-1.5 rounded-lg text-center transition-colors"
-                >
-                  🎮 Oyna
-                </Link>
-              </div>
+              <Link
+                href={`/game/${topic.id}`}
+                className="flex-1 text-xs font-semibold text-white bg-violet-600/70 hover:bg-violet-600
+                  py-1.5 rounded-lg text-center transition-colors"
+              >
+                🎮 Oyna
+              </Link>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
 
       {/* Modal */}
       {selectedTopic && (
         <div
-          className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
           onClick={() => setSelectedTopic(null)}
         >
           <div
-            className="bg-white rounded-3xl w-full max-w-lg max-h-[85vh] overflow-y-auto shadow-2xl"
+            className="glass border border-white/12 rounded-3xl w-full max-w-lg
+              max-h-[85vh] overflow-y-auto shadow-2xl shadow-black/60"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal header */}
-            <div className="bg-gradient-to-r from-red-700 to-red-900 text-white p-6 rounded-t-3xl flex items-start justify-between gap-4">
+            <div className="p-6 border-b border-white/8 flex items-start justify-between gap-4">
               <div className="flex items-center gap-3">
-                <span className="text-4xl">{selectedTopic.icon}</span>
+                <span className="text-3xl">{selectedTopic.icon}</span>
                 <div>
-                  <p className="text-red-200 text-xs uppercase tracking-wide">
+                  <p className="text-violet-400 text-[10px] uppercase tracking-widest">
                     {selectedTopic.category}
                   </p>
-                  <h2 className="font-bold text-xl leading-tight">{selectedTopic.title}</h2>
+                  <h2 className="font-bold text-lg text-white leading-tight">{selectedTopic.title}</h2>
                 </div>
               </div>
               <button
                 onClick={() => setSelectedTopic(null)}
-                className="text-red-200 hover:text-white text-2xl leading-none mt-0.5 flex-shrink-0"
+                className="text-slate-600 hover:text-white text-xl leading-none mt-0.5 flex-shrink-0
+                  transition-colors"
               >
                 ×
               </button>
             </div>
 
-            <div className="p-6 space-y-6">
+            <div className="p-6 space-y-5">
               {/* Rule */}
               <div>
-                <h3 className="font-bold text-gray-700 text-sm uppercase tracking-wide mb-3">
+                <h3 className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest mb-3">
                   📖 Kural
                 </h3>
-                <div className="bg-red-50 rounded-xl p-4 text-sm text-gray-700 leading-relaxed whitespace-pre-line">
+                <div className="bg-white/4 border border-white/8 rounded-xl p-4 text-sm
+                  text-slate-300 leading-relaxed whitespace-pre-line">
                   {selectedTopic.rule.split(/(\*\*.*?\*\*)/).map((part, i) =>
                     part.startsWith('**') ? (
-                      <strong key={i} className="font-semibold text-red-800">
+                      <strong key={i} className="font-semibold text-violet-300">
                         {part.slice(2, -2)}
                       </strong>
                     ) : (
@@ -268,34 +267,37 @@ export default function LibraryPage() {
 
               {/* Examples */}
               <div>
-                <h3 className="font-bold text-gray-700 text-sm uppercase tracking-wide mb-3">
+                <h3 className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest mb-3">
                   🇷🇺 Örnekler
                 </h3>
                 <div className="space-y-2">
                   {selectedTopic.examples.map((ex, i) => (
-                    <div key={i} className="bg-gray-50 rounded-xl p-3 flex items-start gap-3">
-                      <span className="text-red-500 font-bold text-sm mt-0.5 min-w-[20px]">
+                    <div key={i} className="bg-white/4 border border-white/6 rounded-xl p-3
+                      flex items-start gap-3">
+                      <span className="text-violet-500 font-bold text-xs mt-0.5 min-w-[18px]">
                         {i + 1}.
                       </span>
                       <div>
-                        <p className="font-semibold text-gray-800">{ex.russian}</p>
-                        <p className="text-gray-500 text-sm">{ex.translation}</p>
+                        <p className="font-semibold text-slate-200 text-sm">{ex.russian}</p>
+                        <p className="text-slate-500 text-xs mt-0.5">{ex.translation}</p>
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="flex gap-3">
+              <div className="flex gap-3 pt-1">
                 <button
                   onClick={() => setSelectedTopic(null)}
-                  className="flex-1 bg-gray-100 text-gray-600 font-semibold py-3 rounded-xl hover:bg-gray-200 transition-colors"
+                  className="flex-1 glass hover:bg-white/8 text-slate-400 hover:text-white
+                    font-medium py-3 rounded-xl transition-colors text-sm"
                 >
                   Kapat
                 </button>
                 <Link
                   href={`/game/${selectedTopic.id}`}
-                  className="flex-1 bg-red-700 text-white font-bold py-3 rounded-xl hover:bg-red-800 transition-colors text-center"
+                  className="flex-1 bg-violet-600/80 hover:bg-violet-600 text-white font-bold
+                    py-3 rounded-xl transition-colors text-center text-sm"
                 >
                   🎮 Oyna!
                 </Link>
