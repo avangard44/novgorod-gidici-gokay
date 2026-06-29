@@ -1,21 +1,15 @@
+import { Gamepad2 } from 'lucide-react'
 import Link from 'next/link'
-import { Gamepad2, ChevronLeft } from 'lucide-react'
+import BackButton from '@/app/components/BackButton'
 
 export default function GrammarGamePage() {
   return (
-    <div className="min-h-full flex flex-col items-center justify-center px-4 py-20">
-      <div className="w-full max-w-sm mb-10">
-        <Link
-          href="/grammar"
-          className="flex items-center gap-1.5 text-slate-700 hover:text-slate-300
-            text-xs transition-colors"
-        >
-          <ChevronLeft size={12} />
-          Dilbilgisi
-        </Link>
+    <div className="min-h-screen flex flex-col items-center justify-center px-5 py-16">
+      <div className="w-full max-w-sm mb-10 flex">
+        <BackButton />
       </div>
-
-      <div className="glass rounded-3xl p-12 max-w-sm w-full flex flex-col items-center gap-6 text-center">
+      <div className="glass rounded-3xl p-10 sm:p-12 max-w-sm w-full flex flex-col
+        items-center gap-6 text-center backdrop-blur-xl border border-white/5">
         <div className="w-16 h-16 rounded-2xl bg-violet-500/10 flex items-center justify-center">
           <Gamepad2 size={26} strokeWidth={1.4} className="text-violet-400" />
         </div>
@@ -26,11 +20,8 @@ export default function GrammarGamePage() {
             Kütüphanedeki konulara özel sorular, 3 can sistemi ve puan tablosu. Çok yakında burada.
           </p>
         </div>
-        <div className="w-full h-px bg-white/6" />
-        <Link
-          href="/grammar/library"
-          className="text-xs text-violet-400 hover:text-violet-300 transition-colors"
-        >
+        <div className="w-full h-px bg-white/5" />
+        <Link href="/library" className="text-xs text-violet-400 hover:text-violet-300 transition-colors">
           Önce Kütüphane'yi keşfet →
         </Link>
       </div>
