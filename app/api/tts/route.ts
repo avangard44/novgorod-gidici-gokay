@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 
 // ElevenLabs voice ID — "Matilda" (eleven_multilingual_v2, natural feminine Russian)
 // You can swap this for any ElevenLabs voice that handles Russian well.
-const VOICE_ID = 'XrExE9yKIg1WjnnlVkGX'
+const VOICE_ID = 'PGPoljVprLVYxwMg5BUa'
 
 export async function POST(req: NextRequest) {
   const { text } = await req.json() as { text: string }
