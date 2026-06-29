@@ -212,38 +212,45 @@ function MobileTopicList({
 
 /* ── Speak button (ElevenLabs TTS) ── */
 function SpeakButton({ text }: { text: string }) {
-  const [loading, setLoading] = useState(false)
+  const [state, setState] = useState<'idle' | 'loading' | 'error'>('idle')
 
   const speak = useCallback(async () => {
-    if (loading) return
-    setLoading(true)
+    if (state === 'loading') return
+    setState('loading')
     try {
       const res = await fetch('/api/tts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text }),
       })
-      if (!res.ok) throw new Error('TTS failed')
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}))
+        console.error('[TTS]', res.status, body)
+        setState('error')
+        setTimeout(() => setState('idle'), 2000)
+        return
+      }
       const blob = await res.blob()
       const url = URL.createObjectURL(blob)
       const audio = new Audio(url)
       audio.onended = () => URL.revokeObjectURL(url)
-      audio.play()
-    } catch {
-      // silent — user will notice no sound
-    } finally {
-      setLoading(false)
+      await audio.play()
+      setState('idle')
+    } catch (e) {
+      console.error('[TTS]', e)
+      setState('error')
+      setTimeout(() => setState('idle'), 2000)
     }
-  }, [text, loading])
+  }, [text, state])
 
   return (
     <button
       onClick={speak}
       aria-label="Seslendir"
       className={`inline-flex items-center justify-center w-6 h-6 rounded-md transition-colors shrink-0
-        ${loading
-          ? 'text-violet-400 bg-violet-500/20 animate-pulse'
-          : 'text-slate-600 hover:text-violet-400 hover:bg-violet-500/10'}`}
+        ${state === 'loading' ? 'text-violet-400 bg-violet-500/20 animate-pulse' :
+          state === 'error'   ? 'text-red-400 bg-red-500/15' :
+                                'text-slate-600 hover:text-violet-400 hover:bg-violet-500/10'}`}
     >
       <Volume2 size={12} />
     </button>
