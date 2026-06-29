@@ -45,8 +45,8 @@ function posColor(pos: string): string {
 }
 
 /* ── Shimmer skeleton ────────────────────────────────────────── */
-function ShimmerBlock({ className }: { className?: string }) {
-  return <div className={`shimmer ${className ?? ''}`} />
+function ShimmerBlock({ className, style }: { className?: string; style?: React.CSSProperties }) {
+  return <div className={`shimmer ${className ?? ''}`} style={style} />
 }
 
 function AnalysisSkeleton() {
